@@ -230,8 +230,10 @@ if __name__ == '__main__':
       \n感谢您对本程序的支持 \
       \n如有程序运行错误，欢迎微信联系作者李天奇：litq_94 \
       \n一键生成成绩排名-尽享假期生活\n\n")
-  input_file_name = input('\n请输入你要进行成绩排序的 txt 文件名称（可前缀相对路径，但不能带后缀名），回车键结束\n')
-  output_file_name = input('\n请输入你想要写入排序结果的 txt 文件名称（可前缀相对路径，但不能带后缀名），回车键结束\n')
+  input_file_name = input('\n请输入你要进行成绩排序的 txt 输入文件名称，回车键结束 \
+              \n\t（不能带后缀名；输入文件默认位于可执行程序所在文件夹，也可选择另行前缀相对路径）\n')
+  output_file_name = input('\n请输入你想要写入排序结果的 txt 输出文件名称，回车键结束 \
+              \n\t（不能带后缀名；输出文件默认位于可执行程序所在文件夹，也可选择另行前缀相对路径）\n')
   char_encoding = input_var('\n请选择文本文件采用的字符编码方案（依照 Windows 记事本对编码模式的命名方式）：\
               \n\tUTF-8编码请输入utf-8，ANSI编码请输入ansi（为记事本默认存储编码），以回车结尾\n', \
               \
@@ -240,5 +242,5 @@ if __name__ == '__main__':
               'ansi','已选择ANSI编码方案\n')
   preproc(input_file_name+'.txt',char_encoding)
   mainproc(output_file_name+'.txt',char_encoding)
-  print("排名计算已结束，可以在 txt 文件中进行查看。\n 欢迎您下次使用。如果进一步需求，欢迎微信联系原作者李天奇：litq_94")
+  print("排名计算已结束，可以在 txt 输出文件中进行查看。\n 欢迎您下次使用。如果进一步需求，欢迎微信联系原作者李天奇：litq_94")
   os.system('pause')

@@ -1,14 +1,14 @@
 # README
 
-This is a simple GPA calculator for Students in Tsinghua University.
+本程序是专为清华大学本科生工作助理（本科生辅导员）设计的 GPA 计算器。
 
-## Before use
+## 使用须知
 
-### Input file
+### 输入文件
 
-输入文件要求为 `.txt` 文本文件，需要将表格中的必要数据粘贴到该文本文件，其中必要数据指如下信息：学号，姓名，教学班级，课程名，课序号，成绩，绩点成绩，考试时间，学分，课程属性，重修补考标志，特殊课程标记。
+输入文件要求为 `.txt` 文本文件，需要将表格中的必要数据粘贴到该文本文件，包括学号、姓名、教学班级、课程名、课序号、成绩、绩点成绩、考试时间、学分、课程属性、重修补考标志、特殊课程标记。
 
-### Compile and Run
+### 编译运行
 
 本程序有两种使用方法：
 
@@ -17,9 +17,9 @@ This is a simple GPA calculator for Students in Tsinghua University.
 
 注意，输入/输出文件的相对路径应以**可执行程序的所在路径**为基准。
 
-## Definition
+## 变量定义
 
-### Course-related Variables
+### 课程相关
 
 * course_credit：课程学分(Course Credit)
 * course_name：课程名(Course Name)
@@ -29,7 +29,7 @@ This is a simple GPA calculator for Students in Tsinghua University.
 * bixian_*：必修+限选
 * bixianren_*：必修+限选+任选
 
-### Student-related Variables
+### 学生相关
 
 * student_id：学号(Student ID)
 * student_name：学生姓名(Student Name)
@@ -43,7 +43,7 @@ This is a simple GPA calculator for Students in Tsinghua University.
 * *_grade_points：某一类型课程总学分绩(Total Grade Point)
 * *_GPA：某一类型课程平均学分绩(Grade Point Average)
 
-### Functions
+### 重要函数
 
 * cal_total_credit：计算总学分(Total Credit)
 * cal_GPA：计算平均学分绩(Grade Point Average)
