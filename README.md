@@ -18,8 +18,10 @@ This is a simple GPA calculator for Students in Tsinghua University.
 
 本程序有两种使用方法：
 
-* 直接运行（推荐）：打开命令行或双击左键直接运行 `bin` 中已编译好的可执行程序 `GPAcalculator_vX.Y.Z` 即可
-* 先编译再运行：打开命令行运行 `Shell` 脚本 `run.sh`，编译好的可执行程序将被置于 `dist` 文件夹内（因此输入/输出文件的相对路径应以 `dist` 文件夹为基准）
+* 直接运行（推荐）：打开命令行或双击左键直接运行已编译好的可执行程序 `GPAcalculator.exe`
+* 先编译再运行：打开命令行运行 `Shell` 脚本 `run.sh`，编译好的可执行程序将被置于 `dist` 文件夹内
+
+注意，输入/输出文件的相对路径应以**可执行程序的所在路径**为基准。
 
 ## Definition
 
