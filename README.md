@@ -43,7 +43,7 @@ $ sh run.sh
 * student_id：学号(Student ID)
 * student_name：学生姓名(Student Name)
 * teach_class：教学班级(Teaching Class)
-* course_exam_time：考试时间(Exam Time)
+* exam_time：考试时间(Exam Time)
 * revamp_mark：重修补考标志(Revamp Mark)
 * degree_type：特殊课程标记(Degree Type)
 * grade：单一课程等级成绩(Grade)

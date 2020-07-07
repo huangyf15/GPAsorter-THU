@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 import os
@@ -146,7 +147,7 @@ def mainproc(output_file_name,char_encoding):
   
   # Read cleaned "__temp.txt" and calculate GPA
   with open('__temp.txt', 'r', encoding=char_encoding) as inp, \
-    open(output_file_name, 'w', encoding=char_encoding) as summary:
+    open(output_file_name, 'w', encoding=char_encoding) as oup:
     title = inp.readline()
     title_col = title.rstrip().split()
 
@@ -224,21 +225,21 @@ def mainproc(output_file_name,char_encoding):
 
     # Write to the output file
     if flag_exclude_pass == 'T':
-      summary.write('学号\t姓名\t教学班级\t必限总学分'+string_exclude_pass+'\t必限总绩\t必限GPA\tRank-必限GPA'+\
+      oup.write('学号\t姓名\t教学班级\t必限总学分'+string_exclude_pass+'\t必限总绩\t必限GPA\tRank-必限GPA'+\
                     '\t必限任总学分'+string_exclude_pass+'\t必限任总绩\t必限任GPA\tRank-必限任GPA'+\
                     '\t必限任总学分（计入P课程）\n')
       for g in range(0,j):
-        summary.write(str(student_id_n[g])+'\t'+str(student_name_n[g])+'\t'+str(teach_class_n[g])+ \
+        oup.write(str(student_id_n[g])+'\t'+str(student_name_n[g])+'\t'+str(teach_class_n[g])+ \
             '\t'+str(bixian_credits[g])+'\t'+str(round(bixian_grade_points[g],3))+ \
             '\t'+str(round(bixian_GPA[g],3))+'\t'+str(sorted(bixian_GPA,reverse = True).index(bixian_GPA[g])+1)+ \
             '\t'+str(bixianren_credits[g])+'\t'+str(round(bixianren_grade_points[g],3))+ \
             '\t'+str(round(bixianren_GPA[g],3))+'\t'+str(sorted(bixianren_GPA,reverse = True).index(bixianren_GPA[g])+1)+ \
             '\t'+str(bixianren_credits_incP[g])+'\n')
     else:
-      summary.write('学号\t姓名\t教学班级\t必限总学分'+string_exclude_pass+'\t必限总绩\t必限GPA'+string_exclude_pass+'\tRank-必限GPA'+\
+      oup.write('学号\t姓名\t教学班级\t必限总学分'+string_exclude_pass+'\t必限总绩\t必限GPA'+string_exclude_pass+'\tRank-必限GPA'+\
                     '\t必限任总学分'+string_exclude_pass+'\t必限任总绩\t必限任GPA'+string_exclude_pass+'\tRank-必限任GPA\n')
       for g in range(0,j):
-        summary.write(str(student_id_n[g])+'\t'+str(student_name_n[g])+'\t'+str(teach_class_n[g])+ \
+        oup.write(str(student_id_n[g])+'\t'+str(student_name_n[g])+'\t'+str(teach_class_n[g])+ \
             '\t'+str(bixian_credits[g])+'\t'+str(round(bixian_grade_points[g],3))+ \
             '\t'+str(round(bixian_GPA[g],3))+'\t'+str(sorted(bixian_GPA,reverse = True).index(bixian_GPA[g])+1)+ \
             '\t'+str(bixianren_credits[g])+'\t'+str(round(bixianren_grade_points[g],3))+ \
