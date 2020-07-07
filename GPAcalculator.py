@@ -236,8 +236,8 @@ def mainproc(output_file_name,char_encoding):
             '\t'+str(round(bixianren_GPA[g],3))+'\t'+str(sorted(bixianren_GPA,reverse = True).index(bixianren_GPA[g])+1)+ \
             '\t'+str(bixianren_credits_incP[g])+'\n')
     else:
-      oup.write('学号\t姓名\t教学班级\t必限总学分'+string_exclude_pass+'\t必限总绩\t必限GPA'+string_exclude_pass+'\tRank-必限GPA'+\
-                    '\t必限任总学分'+string_exclude_pass+'\t必限任总绩\t必限任GPA'+string_exclude_pass+'\tRank-必限任GPA\n')
+      oup.write('学号\t姓名\t教学班级\t必限总学分'+string_exclude_pass+'\t必限总绩\t必限GPA\tRank-必限GPA'+\
+                    '\t必限任总学分'+string_exclude_pass+'\t必限任总绩\t必限任GPA\tRank-必限任GPA\n')
       for g in range(0,j):
         oup.write(str(student_id_n[g])+'\t'+str(student_name_n[g])+'\t'+str(teach_class_n[g])+ \
             '\t'+str(bixian_credits[g])+'\t'+str(round(bixian_grade_points[g],3))+ \
