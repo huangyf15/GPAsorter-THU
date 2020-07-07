@@ -47,3 +47,7 @@
 
 * cal_total_credit：计算总学分(Total Credit)
 * cal_GPA：计算平均学分绩(Grade Point Average)
+
+## 鸣谢
+
+特此鸣谢生科李天奇学长的前期开发工作！

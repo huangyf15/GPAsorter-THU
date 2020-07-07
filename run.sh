@@ -1,13 +1,12 @@
 #! /bin/bash
 # Define the path
-EDITION="2.2"
-BIN=GPAcalculator_v${EDITION}
+BIN=GPAcalculator
 SRC=${BIN}.py
 # Compile the src
 pyinstaller -F ${SRC}
 rm *.spec
-mkdir bin
-cp dist/${BIN} bin/
+rm __pycache__/*
+rmdir __pycache__
 # Run the execute
 cd dist
 rm __*
