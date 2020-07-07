@@ -38,7 +38,7 @@ def cal_GPA(course_credit,grade_point,grade_points,grade):
     return grade_points_new
 
 
-## Function: Calculate GPA (Grade Point Average)
+## Function: Detect the input string variables
 def input_var(leading_words, choiceA, choiceA_words, choiceB, choiceB_words):
   var_value = input(leading_words)
   while var_value != choiceA and var_value != choiceB:
@@ -174,6 +174,7 @@ def mainproc(output_file_name,char_encoding):
     bixianren_credits      = []
     bixianren_grade_points = []
 
+    # Calculate credits and grade points
     j = 0
     for i in stu_course_list:
       i = i.rstrip().split('\t')
@@ -187,7 +188,6 @@ def mainproc(output_file_name,char_encoding):
         bixianren_grade_points.append(0)
         j = j + 1
         print(str(j)+' '+student_name_n[j-1])
-    
       poc = student_id_n.index(i[student_id])
       if '体疗' in i[course_name]:
         bixianren_credits[poc] = bixianren_credits[poc] + 1
@@ -199,8 +199,9 @@ def mainproc(output_file_name,char_encoding):
         bixian_grade_points[poc] = cal_GPA(i[course_credit],i[grade_point],bixian_grade_points[poc],i[grade])
       bixianren_credits[poc] = cal_total_credit(i[course_credit],i[grade_point],bixianren_credits[poc],i[grade],flag_exclude_pass)
       bixianren_grade_points[poc] = cal_GPA(i[course_credit],i[grade_point],bixianren_grade_points[poc],i[grade])
+    print("总统计人数为："+str(j)+"\n")
 
-    print("总统计人数为："+str(j)+"\n")    
+    # Calculate GPA
     for g in range(0,j):
       if bixian_credits[g]==0:
         bixian_GPA.append(0)
@@ -210,7 +211,6 @@ def mainproc(output_file_name,char_encoding):
         bixianren_GPA.append(0)
       else:
         bixianren_GPA.append(bixianren_grade_points[g]/bixianren_credits[g])
-    
 
     # Write to the output file
     summary.write('学号\t姓名\t教学班级\t必限总学分\t必限总绩\t必限GPA\tRank-必限GPA\t必限任总学分\t必限任总绩\t必限任GPA\tRank-必限任GPA\n')
