@@ -33,22 +33,26 @@ def calGPA(fen,ji,num,classji,chong):
     
 ##预处理数据
 def preproc(wenjian_name):
-  TorF = input('是否在任选课中剔除双学位和辅修课程：剔除双学位和辅修课程请输入T，保留双学位和辅修课程请输入F，以回车结尾\n')
+  TorF = input('是否在任选课中剔除双学位和辅修课程：\
+            \n\t剔除请输入T，保留请输入F，以回车结尾\n')
   while TorF != 'T' and TorF != 'F':
-    TorF = input('输入有误。请重新选择是否在任选课中剔除双学位课程：剔除双学位课程请输出T，保留双学位课程请输入F，以回车结尾\n')
+    TorF = input('输入有误。请重新选择是否在任选课中剔除双学位和辅修课程：\
+              \n\t剔除请输入T，保留双学位课程请输入F，以回车结尾\n')
   if TorF == 'T':
-    print('已选择剔除双学位课程\n')
+    print('已选择剔除双学位和辅修课程\n')
   elif TorF == 'F':
-    print('已选择保留双学位课程\n')
+    print('已选择保留双学位和辅修课程\n')
         
 
-  fail = input('是否剔除已重修通过科目中过去的挂科记录，保留过去挂科记录请输入T，剔除请输入F，以回车结尾\n')
+  fail = input('是否保留已重修通过科目中的挂科记录：\
+            \n\t保留请输入T，剔除请输入F，以回车结尾\n')
   while fail != 'T' and fail != 'F':
-    fail = input('输入有误。请重新选择是否剔除已重修通过科目中过去的挂科记录，保留过去挂科记录请输入T，剔除请输入F，以回车结尾\n')
+    fail = input('输入有误。请重新选择是否保留已重修通过科目中的挂科记录：\
+              \n\t保留请输入T，剔除请输入F，以回车结尾\n')
   if fail == 'T':
-    print('已选择保留过去挂科记录\n')
+    print('已选择保留已重修通过科目中的挂科记录\n')
   elif fail == 'F':
-    print('已选择剔除过去挂科记录\n')
+    print('已选择剔除已重修通过科目中的挂科记录\n')
   ##生成一个临时数据文件__temp.txt
   with open(wenjian_name,'r') as inp, open('__temp.txt','a') as oup:
     title = inp.readline()
@@ -65,9 +69,11 @@ def preproc(wenjian_name):
       shuxing = title_col.index('课程属性')
       kenum = title_col.index('课序号')
       chongxiubiao = title_col.index('重修补考标志')
-      xuewei = title_col.index('TSKCBJ')
+      xuewei = title_col.index('特殊课程标记')
     except:
-      print('请将全部数据粘贴到txt文件中使用,至少包含学号，姓名，教学班级，成绩，绩点成绩，学分，课程属性，课程号，考试时间，重修补考标志和一二学位标志。\n')
+      print('数据不完整。请将必要数据粘贴到txt文件中使用，并至少包含如下信息：\
+         \n\t学号，姓名，教学班级，课程号，成绩，绩点成绩，考试时间，\
+         \n\t学分，课程属性，重修补考标志，特殊课程标记等\n')
       os.system('pause')
       exit()
     oup.write(title)
@@ -126,7 +132,7 @@ def preproc(wenjian_name):
         
 def mainproc(shuchu_name):
   ##读取经过清洗的临时文件，计算学分绩
-  with open('__temp.txt','r')as inp,open(shuchu_name,'a') as summary:
+  with open('__temp.txt','r') as inp, open(shuchu_name,'a') as summary:
     title = inp.readline()
 
     title_col = title.rstrip().split()
@@ -140,7 +146,7 @@ def mainproc(shuchu_name):
     xuefen = title_col.index('学分')
     shuxing = title_col.index('课程属性')
     chongxiu = title_col.index('重修补考标志')
-    xuewei = title_col.index('TSKCBJ')
+    xuewei = title_col.index('特殊课程标记')
 
     chengji_total = inp.readlines()
 
@@ -219,9 +225,12 @@ def mainproc(shuchu_name):
                     +str(round(all_add[g],3))+'\t'+str(sorted(all_add,reverse = True).index(all_add[g])+1)+'\t'+str(bixiu_num[g]+xianxuan_num[g]+renxuan_num[g])+'\n')
   os.remove('__temp.txt') 
 
-print("亲爱的用户，欢迎您试用“李导帮你算成绩”程序2.1版本\n感谢您对本程序的支持\n如有程序运行错误，欢迎微信联系作者李天奇：litq_94\n一键生成成绩排名-尽享假期生活\n\n")
-wenjian_name = input("请输入你要进行成绩排序的文件（需要同时输入文件后缀），回车键结束\n")
-shuchu_name = input("请输入你想要写入的文件名称（为方便打开，建议您同时输入文件后缀），回车键结束\n")
+print("亲爱的用户，欢迎您试用“李导帮你算成绩”程序2.1版本 \
+     \n感谢您对本程序的支持 \
+     \n如有程序运行错误，欢迎微信联系作者李天奇：litq_94 \
+     \n一键生成成绩排名-尽享假期生活\n\n")
+wenjian_name = input("请输入你要进行成绩排序的 txt 文件（需要同时输入文件后缀），回车键结束\n")
+shuchu_name = input("请输入你想要写入的 txt 文件名称（为方便打开，建议您同时输入文件后缀），回车键结束\n")
 preproc(wenjian_name)
 mainproc(shuchu_name)
 
