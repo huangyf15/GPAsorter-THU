@@ -137,8 +137,8 @@ def preproc(input_file_name,char_encoding):
 ## Function: Process and output the GPA
 def mainproc(output_file_name,char_encoding):
   ## Input Flags
-  flag_exclude_pass = input_var('是否剔除已通过科目中的 P/F 课程：\
-                        \n\t剔除请输入T，保留请输入F，以回车结尾\n', \
+  flag_exclude_pass = input_var('是否在计算GPA时剔除已通过科目中的 P/F 课程：\
+                        \n\t剔除请输入T（一般选择剔除），保留请输入F，以回车结尾\n', \
                         \
                         'T','已选择剔除已通过科目中的 P/F 课程\n', \
                         \
@@ -173,6 +173,11 @@ def mainproc(output_file_name,char_encoding):
     bixianren_GPA          = []
     bixianren_credits      = []
     bixianren_grade_points = []
+    if flag_exclude_pass == 'T':
+      bixianren_credits_incP = []
+      string_exclude_pass = '（不计入P课程）'
+    else:
+      string_exclude_pass = '（计入P课程）'
 
     # Calculate credits and grade points
     j = 0
@@ -186,17 +191,22 @@ def mainproc(output_file_name,char_encoding):
         bixian_grade_points.append(0)
         bixianren_credits.append(0)
         bixianren_grade_points.append(0)
+        bixianren_credits_incP.append(0)
         j = j + 1
         print(str(j)+' '+student_name_n[j-1])
       poc = student_id_n.index(i[student_id])
       if '体疗' in i[course_name]:
         bixianren_credits[poc] = bixianren_credits[poc] + 1
+        if flag_exclude_pass == 'T':
+          bixianren_credits_incP[poc] = bixianren_credits_incP[poc] + 1
         bixianren_grade_points[poc] = bixianren_grade_points[poc] + 0.8
         print('含有体疗课程')
         continue        
       if i[course_type] in ['必修','限选']:
         bixian_credits[poc] = cal_total_credit(i[course_credit],i[grade_point],bixian_credits[poc],i[grade],flag_exclude_pass)
         bixian_grade_points[poc] = cal_GPA(i[course_credit],i[grade_point],bixian_grade_points[poc],i[grade])
+      if flag_exclude_pass == 'T':
+        bixianren_credits_incP[poc] = cal_total_credit(i[course_credit],i[grade_point],bixianren_credits_incP[poc],i[grade],'F')
       bixianren_credits[poc] = cal_total_credit(i[course_credit],i[grade_point],bixianren_credits[poc],i[grade],flag_exclude_pass)
       bixianren_grade_points[poc] = cal_GPA(i[course_credit],i[grade_point],bixianren_grade_points[poc],i[grade])
     print("总统计人数为："+str(j)+"\n")
@@ -213,14 +223,27 @@ def mainproc(output_file_name,char_encoding):
         bixianren_GPA.append(bixianren_grade_points[g]/bixianren_credits[g])
 
     # Write to the output file
-    summary.write('学号\t姓名\t教学班级\t必限总学分\t必限总绩\t必限GPA\tRank-必限GPA\t必限任总学分\t必限任总绩\t必限任GPA\tRank-必限任GPA\n')
-    for g in range(0,j):
-      summary.write(str(student_id_n[g])+'\t'+str(student_name_n[g])+'\t'+str(teach_class_n[g])+ \
-          '\t'+str(bixian_credits[g])+'\t'+str(round(bixian_grade_points[g],3))+ \
-          '\t'+str(round(bixian_GPA[g],3))+'\t'+str(sorted(bixian_GPA,reverse = True).index(bixian_GPA[g])+1)+ \
-          '\t'+str(bixianren_credits[g])+'\t'+str(round(bixianren_grade_points[g],3))+ \
-          '\t'+str(round(bixianren_GPA[g],3))+'\t'+str(sorted(bixianren_GPA,reverse = True).index(bixianren_GPA[g])+1)+ \
-          '\n')
+    if flag_exclude_pass == 'T':
+      summary.write('学号\t姓名\t教学班级\t必限总学分'+string_exclude_pass+'\t必限总绩\t必限GPA\tRank-必限GPA'+\
+                    '\t必限任总学分'+string_exclude_pass+'\t必限任总绩\t必限任GPA\tRank-必限任GPA'+\
+                    '\t必限任总学分（计入P课程）\n')
+      for g in range(0,j):
+        summary.write(str(student_id_n[g])+'\t'+str(student_name_n[g])+'\t'+str(teach_class_n[g])+ \
+            '\t'+str(bixian_credits[g])+'\t'+str(round(bixian_grade_points[g],3))+ \
+            '\t'+str(round(bixian_GPA[g],3))+'\t'+str(sorted(bixian_GPA,reverse = True).index(bixian_GPA[g])+1)+ \
+            '\t'+str(bixianren_credits[g])+'\t'+str(round(bixianren_grade_points[g],3))+ \
+            '\t'+str(round(bixianren_GPA[g],3))+'\t'+str(sorted(bixianren_GPA,reverse = True).index(bixianren_GPA[g])+1)+ \
+            '\t'+str(bixianren_credits_incP[g])+'\n')
+    else:
+      summary.write('学号\t姓名\t教学班级\t必限总学分'+string_exclude_pass+'\t必限总绩\t必限GPA'+string_exclude_pass+'\tRank-必限GPA'+\
+                    '\t必限任总学分'+string_exclude_pass+'\t必限任总绩\t必限任GPA'+string_exclude_pass+'\tRank-必限任GPA\n')
+      for g in range(0,j):
+        summary.write(str(student_id_n[g])+'\t'+str(student_name_n[g])+'\t'+str(teach_class_n[g])+ \
+            '\t'+str(bixian_credits[g])+'\t'+str(round(bixian_grade_points[g],3))+ \
+            '\t'+str(round(bixian_GPA[g],3))+'\t'+str(sorted(bixian_GPA,reverse = True).index(bixian_GPA[g])+1)+ \
+            '\t'+str(bixianren_credits[g])+'\t'+str(round(bixianren_grade_points[g],3))+ \
+            '\t'+str(round(bixianren_GPA[g],3))+'\t'+str(sorted(bixianren_GPA,reverse = True).index(bixianren_GPA[g])+1)+ \
+            '\n')
   os.remove('__temp.txt') 
 
 
