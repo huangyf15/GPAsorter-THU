@@ -1,12 +1,14 @@
 # README
 
-## Before use
+This is a simple GPA calculator for Students in Tsinghua University.
 
-### Path Intro
+## Structure
 
 * `bin`：编译好的可执行程序 `GPAcalculator_vX.Y.Z.exe` （X.Y.Z 为当前版本号）
 * `test`：编写程序时的测试文件，包括输入文件 `input.txt` 与输出文件 `output.txt`
 * `build, dist`：编译过程中生成的工程文件，其中可执行程序位于 `dist` 内
+
+## Before use
 
 ### Input file
 
@@ -16,15 +18,8 @@
 
 本程序有两种使用方法：
 
-#### 直接运行可执行程序（推荐）
-
-* 打开 `bin` 文件夹，将其中编译好的可执行程序移动至需要的任意路径 `PATH`，运行前将输入文件置于 `.exe` 同一路径 `PATH` 下；
-* 打开命令行，进入 `PATH` 路径，输入 `./GPAcalculator_vX.Y.Z` 即可（X.Y.Z 要换成当前版本号）即可；输出文件位于 `PATH` 路径下。
-
-#### 先编译源码后运行程序
-
-* 打开命令行中，在 `run.sh` 所在路径输入 `sh run.sh`，自动生成包含有可执行程序的 `dist` 文件夹；
-* 将输入文件置于 `dist` 文件夹，继续运行程序，生成的输出文件位于 `dist` 文件夹中。
+* 直接运行（推荐）：打开命令行直接运行 `bin` 中已编译好的可执行程序 `GPAcalculator_vX.Y.Z` 即可
+* 先编译再运行：打开命令行运行 `Shell` 脚本 `run.sh`，编译好的可执行程序将被置于 `dist` 文件夹内（因此输入/输出文件的相对路径应以 `dist` 文件夹为基准）
 
 ## Definition
 
@@ -35,11 +30,8 @@
 * course_type：课程属性(Course Type)
 * course_id：课程号(Course ID)
 * course_order：课序号(Course ID Order)
-* bixiu：必修
-* xianxuan：限选
-* renxuan：任选
-* bixian：必修+限选
-* bixianren：必修+限选+任选
+* bixian_*：必修+限选
+* bixianren_*：必修+限选+任选
 
 ### Student-related Variables
 
