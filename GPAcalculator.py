@@ -79,17 +79,17 @@ def preproc(input_file_name,char_encoding):
       student_name  = title_col.index('姓名')
       teach_class   = title_col.index('教学班级')
       course_name   = title_col.index('课程名')
-      course_order  = title_col.index('课序号')
+      course_id     = title_col.index('课程号')
       grade         = title_col.index('成绩')
       grade_point   = title_col.index('绩点成绩')
       exam_time     = title_col.index('考试时间')
       course_credit = title_col.index('学分')
       course_type   = title_col.index('课程属性')
-      revamp_line   = title_col.index('重修补考标志')
+      revamp_mark   = title_col.index('重修补考标志')
       degree_type   = title_col.index('特殊课程标记')
     except:
       print('数据不完整。请将必要数据粘贴到txt文件中使用，并至少包含如下信息：\
-         \n\t学号，姓名，教学班级，课程名，课序号，成绩，绩点成绩，考试时间，\
+         \n\t学号，姓名，教学班级，课程号，课程名，成绩，绩点成绩，考试时间，\
          \n\t学分，课程属性，重修补考标志，特殊课程标记等\n')
       os.system('pause')
       exit()
@@ -97,19 +97,19 @@ def preproc(input_file_name,char_encoding):
     lines = inp.readlines()
     total_line = []
 
-    # Establish the dictionary: Point "student_id+course_order" to the last exam_time
+    # Establish the dictionary: Point "student_id+course_id" to the last exam_time
     revamp_dict = {}
     for j in lines:
       i = j.rstrip().split('\t')
       total_line.append(j)
-      if i[revamp_line] =='重修':
-        if i[student_id]+i[course_order] in revamp_dict.keys():
-          if int(i[exam_time]) > int(revamp_dict[i[student_id]+i[course_order]]):
-            revamp_dict[i[student_id]+i[course_order]]= i[exam_time]
+      if i[revamp_mark] =='重修':
+        if i[student_id]+i[course_id] in revamp_dict.keys():
+          if int(i[exam_time]) > int(revamp_dict[i[student_id]+i[course_id]]):
+            revamp_dict[i[student_id]+i[course_id]]= i[exam_time]
         else:
-          revamp_dict[i[student_id]+i[course_order]] = i[exam_time]
+          revamp_dict[i[student_id]+i[course_id]] = i[exam_time]
     
-    # Delete Dual Degree Courses according to student_id + course_order
+    # Delete Dual Degree Courses according to "student_id+course_id"
     final_line = []
     if flag_exclude_double_degree == 'F':
       final_line = total_line
@@ -126,28 +126,28 @@ def preproc(input_file_name,char_encoding):
     else:
       for i in final_line:
         j = i.rstrip().split()
-        if j[student_id]+j[course_order] not in revamp_dict.keys():
+        if j[student_id]+j[course_id] not in revamp_dict.keys():
           final_line2.append(i)
-        elif j[exam_time] == revamp_dict[j[student_id]+j[course_order]]:
+        elif j[exam_time] == revamp_dict[j[student_id]+j[course_id]]:
           final_line2.append(i)
     for j in final_line2:    
       oup.write(j)
-        
+
 
 ## Function: Process and output the GPA
 def mainproc(output_file_name,char_encoding):
-  ## Input Flags
+  # Input Flags
   flag_exclude_pass = input_var('是否在计算GPA时剔除已通过科目中的 P/F 课程：\
                         \n\t剔除请输入T（一般选择剔除），保留请输入F，以回车结尾\n', \
                         \
                         'T','已选择剔除已通过科目中的 P/F 课程\n', \
                         \
                         'F','已选择保留已通过科目中的 P/F 课程\n')
-  ## Read cleaned "__temp.txt" and calculate GPA
+  
+  # Read cleaned "__temp.txt" and calculate GPA
   with open('__temp.txt', 'r', encoding=char_encoding) as inp, \
     open(output_file_name, 'w', encoding=char_encoding) as summary:
     title = inp.readline()
-
     title_col = title.rstrip().split()
 
     student_id    = title_col.index('学号')
@@ -158,7 +158,7 @@ def mainproc(output_file_name,char_encoding):
     grade_point   = title_col.index('绩点成绩')
     course_credit = title_col.index('学分')
     course_type   = title_col.index('课程属性')
-    revamp_line   = title_col.index('重修补考标志')
+    revamp_mark   = title_col.index('重修补考标志')
     degree_type   = title_col.index('特殊课程标记')
 
     stu_course_list = inp.readlines()
@@ -244,6 +244,7 @@ def mainproc(output_file_name,char_encoding):
             '\t'+str(bixianren_credits[g])+'\t'+str(round(bixianren_grade_points[g],3))+ \
             '\t'+str(round(bixianren_GPA[g],3))+'\t'+str(sorted(bixianren_GPA,reverse = True).index(bixianren_GPA[g])+1)+ \
             '\n')
+  
   os.remove('__temp.txt') 
 
 
