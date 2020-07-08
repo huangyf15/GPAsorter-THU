@@ -1,6 +1,6 @@
 #! /bin/bash
 # Define the path
-BIN=GPAcalculator
+BIN=GPAsorter-THU
 SRC=${BIN}.py
 # Compile the src
 pyinstaller -F ${SRC}
