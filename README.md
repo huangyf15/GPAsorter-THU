@@ -13,10 +13,10 @@
 
 本程序有两种使用方法：
 
-* 直接运行（推荐）：打开命令行或双击左键直接运行已编译好的可执行程序 `GPAcalculator.exe`（见发行版）；
-* 先编译再运行：在 `your_path/GPAcalculator` 中打开命令行运行 `Shell` 脚本 `run.sh`，编译好的可执行程序将被置于 `dist` 文件夹内并自动直接运行。如在 git bash 界面下，可运行如下命令
+* 直接运行（推荐）：打开命令行或双击左键直接运行已编译好的可执行程序 `GPAsorter-THU.exe`（见发行版）；
+* 先编译再运行：在 `your_path/GPAsorter-THU` 中打开命令行运行 `Shell` 脚本 `run.sh`，编译好的可执行程序将被置于 `dist` 文件夹内并自动直接运行。如在 git bash 界面下，可运行如下命令
 ```
-PS your_path/GPAcalculator
+PS your_path/GPAsorter-THU
 $ sh run.sh
 ```
 其中，`your_path` 是指运行 `git clone` 下载此项目时所在的文件路径。
