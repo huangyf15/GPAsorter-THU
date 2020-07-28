@@ -3,7 +3,31 @@
 
 import os
 
-## Function: Calculate total credit
+## Function: main procedure
+def main():
+  print("\n亲爱的用户，欢迎您试用“李导帮你算成绩”程序，感谢您对本程序的支持！ \
+      \n\n如有程序运行错误，欢迎微信联系程序原作者或在 GitHub 项目提交新的 issue\
+      \n- 程序原作者：李天奇（微信号 litq_94）\
+      \n- 项目 GitHub 网址：https://github.com/huangyf15/GPAsorter-THU \
+      \n\n--- 一键生成成绩排名-尽享愉快假期生活 --- \n")
+  input_file_name = input('\n请输入你要进行成绩排序的 txt 输入文件名称，回车键结束 \
+              \n\t（不能带后缀名；输入文件默认位于可执行程序所在文件夹，也可选择另行前缀相对路径）\n')
+  output_file_name = input('\n请输入你想要写入排序结果的 txt 输出文件名称，回车键结束 \
+              \n\t（不能带后缀名；输出文件默认位于可执行程序所在文件夹，也可选择另行前缀相对路径）\n')
+  char_encoding = input_var('\n请选择文本文件采用的字符编码方案（依照 Windows 记事本对编码模式的命名方式）：\
+              \n\tUTF-8 编码请输入 utf-8，ANSI 编码请输入 ansi（为记事本默认存储编码），以回车结尾\n', \
+              \
+              'utf-8','已选择 UTF-8 编码方案\n', \
+              \
+              'ansi','已选择 ANSI 编码方案\n')
+  preproc(input_file_name+'.txt',char_encoding)
+  mainproc(output_file_name+'.txt',char_encoding)
+  print("排名计算已结束，可以在 txt 输出文件中进行查看。欢迎您下次使用！\
+        \n\n如有进一步需求，欢迎微信联系原作者或在 GitHub 项目提交新的 issue：\
+        \n- 程序原作者：李天奇（微信号 litq_94）\
+        \n- 项目 GitHub 网址：https://github.com/huangyf15/GPAsorter-THU\n")
+
+## Function: calculate total credit
 def cal_total_credit(course_credit,grade_point,total_credit,grade,flag_exclude_pass):
   if grade in ['EX','W','I','G']:
     return total_credit
@@ -24,7 +48,7 @@ def cal_total_credit(course_credit,grade_point,total_credit,grade,flag_exclude_p
     return total_credit_new
 
 
-## Function: Calculate GPA (Grade Point Average)
+## Function: calculate GPA (Grade Point Average)
 def cal_GPA(course_credit,grade_point,grade_points,grade):
   if grade in ['EX','P','W','I','G']:
     return grade_points
@@ -39,7 +63,7 @@ def cal_GPA(course_credit,grade_point,grade_points,grade):
     return grade_points_new
 
 
-## Function: Detect the input string variables
+## Function: detect the input string variables
 def input_var(leading_words, choiceA, choiceA_words, choiceB, choiceB_words):
   var_value = input(leading_words)
   while var_value != choiceA and var_value != choiceB:
@@ -51,18 +75,18 @@ def input_var(leading_words, choiceA, choiceA_words, choiceB, choiceB_words):
   return var_value
 
 
-## Function: Data preprocessing
+## Function: preprocess the data
 def preproc(input_file_name,char_encoding):
   ## Input Flags
   flag_exclude_double_degree = input_var('是否在任选课中剔除双学位和辅修课程：\
-                          \n\t剔除请输入T，保留请输入F，以回车结尾\n', \
+                          \n\t剔除请输入 T，保留请输入 F，以回车结尾\n', \
                           \
                           'T','已选择剔除双学位和辅修课程\n', \
                           \
                           'F','已选择保留双学位和辅修课程\n')
   
   flag_exclude_fail_revamp = input_var('是否剔除已重修通过科目中的挂科记录：\
-                          \n\t剔除请输入T，保留请输入F，以回车结尾\n', \
+                          \n\t剔除请输入 T，保留请输入 F，以回车结尾\n', \
                           \
                           'T','已选择剔除已重修通过科目中的挂科记录\n', \
                           \
@@ -135,11 +159,11 @@ def preproc(input_file_name,char_encoding):
       oup.write(j)
 
 
-## Function: Process and output the GPA
+## Function: calculate and output GPA
 def mainproc(output_file_name,char_encoding):
   # Input Flags
-  flag_exclude_pass = input_var('是否在计算GPA时剔除已通过科目中的 P/F 课程：\
-                        \n\t剔除请输入T（一般选择剔除），保留请输入F，以回车结尾\n', \
+  flag_exclude_pass = input_var('是否在计算 GPA 时剔除已通过科目中的 P/F 课程：\
+                        \n\t剔除请输入 T（一般选择剔除），保留请输入 F，以回车结尾\n', \
                         \
                         'T','已选择剔除已通过科目中的 P/F 课程\n', \
                         \
@@ -251,21 +275,5 @@ def mainproc(output_file_name,char_encoding):
 
 ## Main process
 if __name__ == '__main__':
-  print("亲爱的用户，欢迎您试用“李导帮你算成绩”程序2.2版本 \
-      \n感谢您对本程序的支持 \
-      \n如有程序运行错误，欢迎微信联系作者李天奇：litq_94 \
-      \n一键生成成绩排名-尽享假期生活\n\n")
-  input_file_name = input('\n请输入你要进行成绩排序的 txt 输入文件名称，回车键结束 \
-              \n\t（不能带后缀名；输入文件默认位于可执行程序所在文件夹，也可选择另行前缀相对路径）\n')
-  output_file_name = input('\n请输入你想要写入排序结果的 txt 输出文件名称，回车键结束 \
-              \n\t（不能带后缀名；输出文件默认位于可执行程序所在文件夹，也可选择另行前缀相对路径）\n')
-  char_encoding = input_var('\n请选择文本文件采用的字符编码方案（依照 Windows 记事本对编码模式的命名方式）：\
-              \n\tUTF-8编码请输入utf-8，ANSI编码请输入ansi（为记事本默认存储编码），以回车结尾\n', \
-              \
-              'utf-8','已选择UTF-8编码方案\n', \
-              \
-              'ansi','已选择ANSI编码方案\n')
-  preproc(input_file_name+'.txt',char_encoding)
-  mainproc(output_file_name+'.txt',char_encoding)
-  print("排名计算已结束，可以在 txt 输出文件中进行查看。\n 欢迎您下次使用。如果进一步需求，欢迎微信联系原作者李天奇：litq_94")
+  main()
   os.system('pause')
