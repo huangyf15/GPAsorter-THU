@@ -3,8 +3,9 @@
 
 import os
 
-## Function: main procedure
 def main():
+  """main procedure
+  """
   print("\n亲爱的用户，欢迎您试用“李导帮你算成绩”程序，感谢您对本程序的支持！ \
       \n\n如有程序运行错误，欢迎微信联系程序原作者或在 GitHub 项目提交新的 issue\
       \n- 程序原作者：李天奇（微信号 litq_94）\
@@ -27,8 +28,13 @@ def main():
         \n- 程序原作者：李天奇（微信号 litq_94）\
         \n- 项目 GitHub 网址：https://github.com/huangyf15/GPAsorter-THU\n")
 
-## Function: calculate total credit
+
 def cal_total_credit(course_credit,grade_point,total_credit,grade,flag_exclude_pass):
+  """calculate total credit
+  
+  Returns: 
+    total credit
+  """
   if grade in ['EX','W','I','G']:
     return total_credit
   elif grade == 'P':
@@ -48,8 +54,12 @@ def cal_total_credit(course_credit,grade_point,total_credit,grade,flag_exclude_p
     return total_credit_new
 
 
-## Function: calculate GPA (Grade Point Average)
 def cal_GPA(course_credit,grade_point,grade_points,grade):
+  """calculate GPA (Grade Point Average)
+  
+  Returns: 
+    total grade point, i.e. GPA
+  """
   if grade in ['EX','P','W','I','G']:
     return grade_points
   elif grade == 'F':
@@ -63,8 +73,12 @@ def cal_GPA(course_credit,grade_point,grade_points,grade):
     return grade_points_new
 
 
-## Function: detect the input string variables
 def input_var(leading_words, choiceA, choiceA_words, choiceB, choiceB_words):
+  """detect the input string variables
+
+  Returns:
+    legal string value (choiceA or choiceB)
+  """
   var_value = input(leading_words)
   while var_value != choiceA and var_value != choiceB:
     var_value = input('输入有误。'+leading_words)
@@ -75,9 +89,12 @@ def input_var(leading_words, choiceA, choiceA_words, choiceB, choiceB_words):
   return var_value
 
 
-## Function: preprocess the data
 def preproc(input_file_name,char_encoding):
-  ## Input Flags
+  """preprocess the data
+
+  Write the preprocessed data to a temporary file.
+  """
+  # Input Flags
   flag_exclude_double_degree = input_var('是否在任选课中剔除双学位和辅修课程：\
                           \n\t剔除请输入 T，保留请输入 F，以回车结尾\n', \
                           \
@@ -92,7 +109,7 @@ def preproc(input_file_name,char_encoding):
                           \
                           'F','已选择保留已重修通过科目的挂科记录\n')
   
-  ## Write to "__temp.txt"
+  # Write to "__temp.txt"
   with open(input_file_name,'r', encoding=char_encoding) as inp, \
     open('__temp.txt','a', encoding=char_encoding) as oup:
     title = inp.readline()
@@ -159,8 +176,11 @@ def preproc(input_file_name,char_encoding):
       oup.write(j)
 
 
-## Function: calculate and output GPA
 def mainproc(output_file_name,char_encoding):
+  """calculate and output GPA
+
+  Read data from the temporary file, calculate and sort students' GPA.
+  """
   # Input Flags
   flag_exclude_pass = input_var('是否在计算 GPA 时剔除已通过科目中的 P/F 课程：\
                         \n\t剔除请输入 T（一般选择剔除），保留请输入 F，以回车结尾\n', \
@@ -273,7 +293,6 @@ def mainproc(output_file_name,char_encoding):
   os.remove('__temp.txt') 
 
 
-## Main process
 if __name__ == '__main__':
   main()
   os.system('pause')
