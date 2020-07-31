@@ -6,7 +6,7 @@
 
 ### 环境要求
 
-* python 3.7.x
+* python 3.7+
 * pyinstaller
 
 ### 编译运行
