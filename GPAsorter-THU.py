@@ -1,28 +1,55 @@
 #! /usr/bin/env python3
 # -*- coding: UTF-8 -*-
+"""GPA-sorter-THU
+* course-related variables
+  * course_credit：课程学分(Course Credit)
+  * course_name：课程名(Course Name)
+  * course_type：课程属性(Course Type)
+  * course_id：课程号(Course ID)
+  * course_order：课序号(Course ID Order)
+  * bixian_*：必修+限选
+  * bixianren_*：必修+限选+任选
+* student-related variables
+  * student_id：学号(Student ID)
+  * student_name：学生姓名(Student Name)
+  * teach_class：教学班级(Teaching Class)
+  * exam_time：考试时间(Exam Time)
+  * revamp_mark：重修补考标志(Revamp Mark)
+  * degree_type：特殊课程标记(Degree Type)
+  * grade：单一课程等级成绩(Grade)
+  * grade_point: 单一课程绩点成绩(Grade Point)
+  * *_credits：某一类型课程总学分(Total Credit)
+  * *_grade_points：某一类型课程总学分绩(Total Grade Point)
+  * *_GPA：某一类型课程平均学分绩(Grade Point Average)
+"""
 
 import os
 
 def main():
   """main procedure
   """
+  # Print leading words
   print("\n亲爱的用户，欢迎您试用“李导帮你算成绩”程序，感谢您对本程序的支持！ \
       \n\n如有程序运行错误，欢迎微信联系程序原作者或在 GitHub 项目提交新的 issue\
       \n- 程序原作者：李天奇（微信号 litq_94）\
       \n- 项目 GitHub 网址：https://github.com/huangyf15/GPAsorter-THU \
       \n\n--- 一键生成成绩排名-尽享愉快假期生活 --- \n")
-  input_file_name = input('\n请输入你要进行成绩排序的 txt 输入文件名称，回车键结束 \
+  print("--------------------- Input information ---------------------")
+  # Input necessary info
+  input_file_name = input('\n- 请输入你要进行成绩排序的 txt 输入文件名称，回车键结束 \
               \n\t（不能带后缀名；输入文件默认位于可执行程序所在文件夹，也可选择另行前缀相对路径）\n')
-  output_file_name = input('\n请输入你想要写入排序结果的 txt 输出文件名称，回车键结束 \
+  output_file_name = input('\n- 请输入你想要写入排序结果的 txt 输出文件名称，回车键结束 \
               \n\t（不能带后缀名；输出文件默认位于可执行程序所在文件夹，也可选择另行前缀相对路径）\n')
-  char_encoding = input_var('\n请选择文本文件采用的字符编码方案（依照 Windows 记事本对编码模式的命名方式）：\
-              \n\tUTF-8 编码请输入 utf-8，ANSI 编码请输入 ansi（为记事本默认存储编码），以回车结尾\n', \
+  char_encoding = input_var('\n- 请选择文本文件采用的字符编码方案（依照 Windows 记事本对编码模式的命名方式）：\
+              \n\tUTF-8 编码请输入 utf-8，ANSI 编码请输入 ansi（为记事本默认存储编码），以回车结尾 \
+              \n\t默认：UTF-8 编码，直接回车即可\n', \
               \
               'utf-8','已选择 UTF-8 编码方案\n', \
               \
               'ansi','已选择 ANSI 编码方案\n')
+  # Calculate and sort
   preproc(input_file_name+'.txt',char_encoding)
-  mainproc(output_file_name+'.txt',char_encoding)
+  cal_and_sort(output_file_name+'.txt',char_encoding)
   print("排名计算已结束，可以在 txt 输出文件中进行查看。欢迎您下次使用！\
         \n\n如有进一步需求，欢迎微信联系原作者或在 GitHub 项目提交新的 issue：\
         \n- 程序原作者：李天奇（微信号 litq_94）\
@@ -80,8 +107,10 @@ def input_var(leading_words, choiceA, choiceA_words, choiceB, choiceB_words):
     legal string value (choiceA or choiceB)
   """
   var_value = input(leading_words)
-  while var_value != choiceA and var_value != choiceB:
+  while var_value != "" and var_value != choiceA and var_value != choiceB:
     var_value = input('输入有误。'+leading_words)
+  if var_value == "":
+    var_value = choiceA
   if var_value == choiceA:
     print(choiceA_words)
   elif var_value == choiceB:
@@ -94,16 +123,20 @@ def preproc(input_file_name,char_encoding):
 
   Write the preprocessed data to a temporary file.
   """
+  # Print leading words
+  print("----------------------- Preprocessing -----------------------")
   # Input Flags
-  flag_exclude_double_degree = input_var('是否在任选课中剔除双学位和辅修课程：\
-                          \n\t剔除请输入 T，保留请输入 F，以回车结尾\n', \
+  flag_exclude_double_degree = input_var('\n- 是否在任选课中剔除双学位和辅修课程：\
+                          \n\t剔除请输入 T，保留请输入 F，以回车结尾 \
+                          \n\t默认：T（剔除双学位和辅修课程），直接回车即可\n', \
                           \
                           'T','已选择剔除双学位和辅修课程\n', \
                           \
                           'F','已选择保留双学位和辅修课程\n')
   
-  flag_exclude_fail_revamp = input_var('是否剔除已重修通过科目中的挂科记录：\
-                          \n\t剔除请输入 T，保留请输入 F，以回车结尾\n', \
+  flag_exclude_fail_revamp = input_var('\n- 是否剔除已重修通过科目中的挂科记录：\
+                          \n\t剔除请输入 T，保留请输入 F，以回车结尾 \
+                          \n\t默认：T（剔除已重修通过科目中的挂科记录），直接回车即可\n', \
                           \
                           'T','已选择剔除已重修通过科目中的挂科记录\n', \
                           \
@@ -176,14 +209,17 @@ def preproc(input_file_name,char_encoding):
       oup.write(j)
 
 
-def mainproc(output_file_name,char_encoding):
+def cal_and_sort(output_file_name,char_encoding):
   """calculate and output GPA
 
   Read data from the temporary file, calculate and sort students' GPA.
   """
+  # Print leading words
+  print("----------------------- Main process -----------------------")
   # Input Flags
-  flag_exclude_pass = input_var('是否在计算 GPA 时剔除已通过科目中的 P/F 课程：\
-                        \n\t剔除请输入 T（一般选择剔除），保留请输入 F，以回车结尾\n', \
+  flag_exclude_pass = input_var('\n- 是否在计算 GPA 时剔除已通过科目中的 P/F 课程：\
+                        \n\t剔除请输入 T（一般选择剔除），保留请输入 F，以回车结尾 \
+                        \n\t默认：T（剔除已通过科目中的 P/F 课程），直接回车即可\n', \
                         \
                         'T','已选择剔除已通过科目中的 P/F 课程\n', \
                         \
