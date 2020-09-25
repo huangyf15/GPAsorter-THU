@@ -4,17 +4,20 @@
 
 ## 使用须知
 
-### 环境要求
+### 使用方法
 
-* python 3.7+
-* pyinstaller
+#### 方案1：下载发行版直接运行（推荐）
 
-### 编译运行
+1. 在 `Releases` 界面下载发行版  `GPAsorter-THU.exe`
+2. 仔细阅读输入输出，按要求导出成绩表格原始文件
+3. 打开命令行或双击左键直接运行已编译好的可执行程序
 
-本程序有两种使用方法：
+#### 方案2：个性化定制后编译运行
 
-* 直接运行（推荐）：打开命令行或双击左键直接运行已编译好的可执行程序 `GPAsorter-THU.exe`（见发行版）；
-* 先编译再运行：在 `your_path/GPAsorter-THU` 中打开命令行运行 `Shell` 脚本 `run.sh`，编译好的可执行程序将被置于 `dist` 文件夹内并自动直接运行。如在 git bash 界面下，可运行如下命令
+* 开发环境要求
+  * python 3.7+
+  * pyinstaller
+* 脚本编译运行：下载源码至 `your_path` 文件夹，在 `your_path/GPAsorter-THU` 中打开命令行运行 `Shell` 脚本 `run.sh` 进行编译，编译好的可执行程序将被置于 `dist` 文件夹内并自动直接运行。如在 git bash 界面下，可运行如下命令
 ```
 PS your_path/GPAsorter-THU
 $ sh run.sh
