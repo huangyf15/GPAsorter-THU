@@ -280,7 +280,7 @@ def cal_and_sort(output_file_name,char_encoding):
         bixianren_credits[poc] = bixianren_credits[poc] + 1
         if flag_exclude_pass == 'T':
           bixianren_credits_incP[poc] = bixianren_credits_incP[poc] + 1
-        bixianren_grade_points[poc] = bixianren_grade_points[poc] + 0.8
+        bixianren_grade_points[poc] = bixianren_grade_points[poc] + 0.8 * 1.3
         print('含有体疗课程')
         continue        
       if i[course_type] in ['必修','限选']:
